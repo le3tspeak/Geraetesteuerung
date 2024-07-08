@@ -1,0 +1,426 @@
+﻿<Window x:Class="Übung_Gerät.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:Übung_Gerät.Windows.ViewModel"
+        xmlns:local="clr-namespace:Übung_Gerät"
+        mc:Ignorable="d"
+        Title="Ergometer 2000" 
+        Height="auto"
+        Width="490" 
+        WindowStyle="None"
+        Background="{x:Null}" 
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" 
+        SizeToContent="Height">
+
+    <!--MVVM Pattern-->
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <md:Card 
+        Margin="25"
+        UniformCornerRadius="15">
+
+        <Grid Cursor="">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--TopBar-->
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal" 
+                HorizontalAlignment="Right">
+
+                <!--Apllication Name-->
+                <md:PackIcon
+                    Kind="Bike"
+                    Height="25"
+                    Width="25"
+                    VerticalAlignment="Center" 
+                    Foreground="White" 
+                    Margin="10,0,10,0"/>
+
+                <TextBlock
+                    Text="Ergometer 2000"
+                    FontSize="20"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Margin="0,0,50,0" 
+                    VerticalAlignment="Center" 
+                    FontFamily="{StaticResource Cascadia Code}"/>
+
+                <!--Minimize BTN-->
+                <Button
+                    Command="{Binding MinimizeAPPCommand}"
+                    Style="{StaticResource MaterialDesignToolButton}" 
+                    Height="30"
+                    Width="45"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top"
+                    Cursor="Hand">
+
+                    <md:PackIcon
+                        Kind="WindowMinimize"
+                        Height="20"
+                        Width="20" Foreground="White"/>
+
+                </Button>
+
+                <!--Close BTN-->
+                <Button
+                    Command="{Binding CloseAPPCommand}"
+                    Style="{StaticResource MaterialDesignToolButton}" 
+                    Height="30"
+                    Width="45"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top"
+                    Cursor="Hand">
+
+                    <md:PackIcon
+                        Kind="WindowClose"
+                        Height="20"
+                        Width="20"
+                        Foreground="White"/>
+
+                </Button>
+
+            </StackPanel>
+
+            <md:Card
+                Grid.Row="1"
+                UniformCornerRadius="10" 
+                Background="DimGray">
+
+
+
+                <!--Content-->
+                <StackPanel
+                    Grid.Row="1" 
+                    Margin="0,10,0,0">
+
+                    <!--Puls-->
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="10,0,10,0" 
+                        VerticalAlignment="Center">
+
+                        <md:PackIcon
+                        Kind="HeartPulse"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center" 
+                        Foreground="White" 
+                        Margin="0,0,10,0"/>
+
+                        <Label
+                        Content="Puls:"
+                        FontFamily="{StaticResource Cascadia Code}" 
+                        FontSize="20"
+                        FontWeight="Bold"
+                        VerticalAlignment="Center"/>
+
+                        <Label
+                        Content="{Binding Puls}" 
+                        FontFamily="{StaticResource Cascadia Code}"
+                        FontSize="20"
+                        FontWeight="Bold"/>
+
+                        <!--Pulse Refresh Animation-->
+                        <md:Card
+                            Visibility="{Binding PulseRefresh}"
+                            Width="20"
+                            Height="20"                            
+                            UniformCornerRadius="5" 
+                            Margin="15,0,0,0" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalContentAlignment="Center" 
+                            Background="#FF616161" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
+
+                            <ProgressBar
+                                Width="15"
+                                Height="15"
+                                IsIndeterminate="True"
+                                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                Value="{Binding PulseProgress}" 
+                                HorizontalContentAlignment="Center" 
+                                VerticalContentAlignment="Center" 
+                                Foreground="#FF069208" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+
+                        </md:Card>
+
+                    </StackPanel>
+
+                    <!--Leistungsstufe-->
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="10,10,10,0">
+
+                        <md:PackIcon
+                            Kind="Speedometer"
+                            Height="30"
+                            Width="30"
+                            VerticalAlignment="Center" 
+                            Foreground="White" 
+                            Margin="0,0,10,0"/>
+
+                        <Label
+                            Content="Trainingsstufe:"
+                            FontFamily="{StaticResource Cascadia Code}" 
+                            FontSize="20"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"/>
+
+                        <Label
+                            Content="{Binding Power}" 
+                            FontFamily="{StaticResource Cascadia Code}"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <!--Leistungsstufe-->
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Margin="10,10,10,0">
+
+                        <md:PackIcon
+                            Kind="TimerOutline"
+                            Height="30"
+                            Width="30"
+                            VerticalAlignment="Center" 
+                            Foreground="White" 
+                            Margin="0,0,10,0"/>
+
+                        <Label
+                            Content="Zeit:"
+                            FontFamily="{StaticResource Cascadia Code}" 
+                            FontSize="20"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"/>
+
+                        <Label
+                            Content="{Binding Time}" 
+                            FontFamily="{StaticResource Cascadia Code}"
+                            FontSize="20"                        
+                            FontWeight="Bold"
+                            Width="35"                            
+                            VerticalAlignment="Center" 
+                            HorizontalContentAlignment="Right"/>
+
+                        <Label
+                            Content="Min"
+                            FontFamily="{StaticResource Cascadia Code}"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"/>
+
+                        <!-- -5 min-->
+                        <Button
+                            Command="{Binding ManipulateWorkoutTimeCommand}"
+                            CommandParameter="-5"
+                            IsEnabled="{Binding IsNotRunning}"
+                            Style="{StaticResource MaterialDesignOutlinedDarkButton}" 
+                            Height="30"
+                            Width="45"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top"
+                            Cursor="Hand" 
+                            Margin="50,0,5,0" 
+                            Background="#FF069208" 
+                            BorderBrush="#FF069208" 
+                            Foreground="White">
+
+                            <md:PackIcon
+                                Kind="Numeric5"
+                                Height="20"
+                                Width="20"
+                                Foreground="White" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+
+                        </Button>
+
+                        <!-- -1 min-->
+                        <Button
+                            Command="{Binding ManipulateWorkoutTimeCommand}"
+                            CommandParameter="-1"
+                            IsEnabled="{Binding IsNotRunning}"
+                            Style="{StaticResource MaterialDesignOutlinedDarkButton}" 
+                            Height="30"
+                            Width="45"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top"
+                            Cursor="Hand" 
+                            Margin="0,0,10,0"
+                            Background="#FF069208" 
+                            BorderBrush="#FF069208" 
+                            Foreground="White">
+
+                            <md:PackIcon
+                                Kind="NumericNegative1"
+                                Height="20"
+                                Width="20"
+                                Foreground="White" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+
+                        </Button>
+
+                        <!-- +1 min-->
+                        <Button
+                            Command="{Binding ManipulateWorkoutTimeCommand}"
+                            CommandParameter="1"
+                            IsEnabled="{Binding IsNotRunning}"
+                            Style="{StaticResource MaterialDesignOutlinedDarkButton}" 
+                            Height="30"
+                            Width="45"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top"
+                            Cursor="Hand" 
+                            Margin="0,0,5,0"
+                            Background="#FF069208" 
+                            BorderBrush="#FF069208" 
+                            Foreground="White">
+
+                            <md:PackIcon
+                                Kind="NumericPositive1"
+                                Height="20"
+                                Width="20"
+                                Foreground="White" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+
+                        </Button>
+
+                        <!--+5 min-->
+                        <Button
+                            Command="{Binding ManipulateWorkoutTimeCommand}"
+                            CommandParameter="5"
+                            IsEnabled="{Binding IsNotRunning}"
+                            Style="{StaticResource MaterialDesignOutlinedDarkButton}" 
+                            Height="30"
+                            Width="45"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Top"
+                            Cursor="Hand"
+                            Background="#FF069208" 
+                            BorderBrush="#FF069208" 
+                            Foreground="White">
+
+                            <md:PackIcon
+                                Kind="Numeric5"
+                                Height="20"
+                                Width="20"
+                                Foreground="White" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+
+                        </Button>
+
+                    </StackPanel>
+
+                    <!--Trainingprogress-->
+                    <StackPanel
+                        Margin="0,10,0,0"
+                        Visibility="{Binding Trainingprogress}">
+
+                        <StackPanel 
+                            Margin="25,0,25,0">
+
+                            <Label
+                                Content="Trainingseinheit:"
+                                FontFamily="{StaticResource Cascadia Code}" 
+                                FontSize="20"
+                                FontWeight="Bold"
+                                VerticalAlignment="Center"/>
+
+                            <ProgressBar
+                                Value="{Binding Progress}"
+                                Maximum="100"
+                                Height="10"
+                                Foreground="Lime"
+                                BorderBrush="{x:Null}"
+                                Margin="0,5,0,0" 
+                                LargeChange="0.1"
+                                SmallChange="0.01" Background="{x:Null}"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <!--Message after training or reset-->
+                    <StackPanel
+                    Margin="0,25,0,0"                    
+                    Visibility="{Binding DisplayMessage}">
+
+                        <StackPanel
+                        Margin="25,0,25,0" 
+                        HorizontalAlignment="Center">
+
+                            <Label
+                            Content="{Binding Message}"
+                            FontFamily="{StaticResource Cascadia Code}" 
+                            FontSize="20"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <!--ControlPanel-->
+                    <StackPanel
+                        Grid.Row="1"
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Center" Margin="0,5,0,0">
+
+                        <Button
+                            Margin="5"
+                            Content="Start"
+                            Command="{Binding StartCommand}" 
+                            IsEnabled="{Binding IsNotRunning}"
+                            Foreground="White" 
+                            Background="#FF007902" 
+                            BorderBrush="#FF007902"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            md:ButtonProgressAssist.IndicatorBackground="#FF00BF03"
+                            md:ButtonProgressAssist.IndicatorForeground="White"
+                            md:ButtonProgressAssist.Opacity="0.4"
+                            md:ButtonProgressAssist.IsIndeterminate="{Binding IsNotRunning}"
+                            md:ButtonProgressAssist.IsIndicatorVisible="True"
+                            md:ButtonProgressAssist.Value="-1"/>
+
+                        <Button
+                            Margin="5"
+                            Content="Stop"
+                            Command="{Binding StopCommand}"
+                            IsEnabled="{Binding IsRunning}" 
+                            Foreground="White" 
+                            BorderBrush="#FF007902" 
+                            Background="#FF007902"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </md:Card>
+
+        </Grid>
+
+    </md:Card>
+
+</Window>
