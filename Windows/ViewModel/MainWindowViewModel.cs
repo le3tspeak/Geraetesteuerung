@@ -245,7 +245,9 @@ internal class MainWindowViewModel : ViewModelBase
         pulseGenerator = new PulseGenerator();        
     }
 
+    //
     //Timer Methods
+    //
 
     // Start Timer for Workout
     private void StartTimerWorkout()
@@ -254,6 +256,7 @@ internal class MainWindowViewModel : ViewModelBase
         _timerWorkout.Elapsed += TimerWorkoutElapsed;
         _timerWorkout.Start();
     }
+
     // Event for Timer Workout
     private void TimerWorkoutElapsed(object? sender, ElapsedEventArgs e)
     {
@@ -272,6 +275,7 @@ internal class MainWindowViewModel : ViewModelBase
             _intervall = new System.Threading.Timer(async (e) => await IntervalTick(), null, 0, 1000);
         });
     }
+
     // Event for Timer Interval
     private async Task IntervalTick()
     {
@@ -302,6 +306,7 @@ internal class MainWindowViewModel : ViewModelBase
         _timerPulse.Elapsed += TimerPulsElapsed;
         _timerPulse.Start();
     }
+
     // Event for Timer Pulse
     private async void TimerPulsElapsed(object? sender, ElapsedEventArgs e)
     {
@@ -317,19 +322,22 @@ internal class MainWindowViewModel : ViewModelBase
         _timerPowerLevel.Elapsed += TimerPowerLevelElapsed;
         _timerPowerLevel.Start();
     }
+
     // Event for Timer Power Level
     private void TimerPowerLevelElapsed(object? sender, ElapsedEventArgs e)
     {
         Power = Models.Leistungsregelung.UpdatePowerLevel(Puls, LastPuls);
     }
 
+    //
     //Methods
+    //
 
     // Close Application
     private void ExecuteCloseAPPCommand(object obj) => Application.Current.Shutdown();
+
     // Minimize Application
     private void ExecuteMinimizeAPPCommand(object obj) => Application.Current.MainWindow.WindowState = WindowState.Minimized;
-
 
     // Start Workout
     private void ExecuteStartCommand(object obj)
@@ -355,6 +363,7 @@ internal class MainWindowViewModel : ViewModelBase
         StartTimerInterval();
         StartTimerPowerLevel();
 
+        // Start Pulse Generation only for testing purposes
         _ = StartPulseGeneration();
 
         Puls = pulseGenerator.Puls;
@@ -368,9 +377,6 @@ internal class MainWindowViewModel : ViewModelBase
         DisplayMessage = Visibility.Visible;
         Message = "Workout gestoppt";
         Reset();
-
-        // Stop Pulse Generation only for testing purposes
-        StopPulseGeneration();
     }
 
     // Reset Workout after Stop or End
@@ -402,9 +408,8 @@ internal class MainWindowViewModel : ViewModelBase
 
     // Change Time 
     private void ExecuteManipulateWorkoutTime(object parameter) => Time = Models.Zeitregelung.ChangeTime(parameter, Time);
-
-
-    // Pulse Generator only for testing purposes
+        
+    // Puls Generator only for testing purposes    
     private async Task StartPulseGeneration()
     {
         cancellationTokenSource = new CancellationTokenSource();

@@ -21,7 +21,7 @@ public class PulseGenerator
         var delay = 5000; // 5 seconds
         var iterations = totalTime / delay;
 
-        // Initial pulse within the first range (60-90)
+        // Initial pulse within the first range (65-75)
         Puls = random.Next(65, 75);
         Debug.WriteLine($"Initial Pulse (60-75): {Puls}");
 
@@ -39,19 +39,19 @@ public class PulseGenerator
 
             if (i <= iterations / 3)
             {
-                // First third of the time: small variations within 60-90
+                // First third of the time: small variations within 65-89
                 Puls = GetNextPulse(Puls, 65, 89);
                 Debug.WriteLine($"Pulse (65-89): {Puls}");
             }
             else if (i <= 2 * iterations / 3)
             {
-                // Second third of the time: small variations within 90-120
+                // Second third of the time: small variations within 90-109
                 Puls = GetNextPulse(Puls, 90, 109);
                 Debug.WriteLine($"Pulse (90-109): {Puls}");
             }
             else
             {
-                // Final third of the time: small variations within 120-160
+                // Final third of the time: small variations within 110-135
                 Puls = GetNextPulse(Puls, 110, 135);
                 Debug.WriteLine($"Pulse (110-135): {Puls}");
             }

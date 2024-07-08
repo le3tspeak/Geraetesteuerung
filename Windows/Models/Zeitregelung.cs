@@ -18,7 +18,7 @@ internal static class Zeitregelung
         const int minTime = 4;
         const int maxTime = 99;
 
-        // Check if time is within the range
+        // Check if time is within the range of min and max Time
         if (time < minTime)
         {
             Debug.WriteLine($"Ändere Zeit um: {timechange} zu {minTime}");
